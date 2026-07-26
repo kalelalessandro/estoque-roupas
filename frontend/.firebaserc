@@ -1,8 +1,0 @@
-{
-  "projects": {
-    "default": "fir-demo-project",
-    "production": "estoque-app-kalel"
-  },
-  "targets": {},
-  "etags": {}
-}
