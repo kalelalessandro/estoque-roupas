@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased bg-paper text-ink;
+    font-feature-settings: 'cv11', 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: rgba(47, 93, 80, 0.18);
+  }
+
+  /* Slim, quiet scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(28, 28, 30, 0.14);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(28, 28, 30, 0.24);
+  }
+
+  /* Visible, deliberate keyboard focus everywhere */
+  :focus-visible {
+    outline: 2px solid #2f5d50;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* ---------- Form controls ---------- */
+  .input {
+    @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/35 shadow-sm
+      transition-all duration-200 ease-premium
+      focus:outline-none focus:ring-4 focus:ring-accent/[0.12] focus:border-accent/60;
+  }
+
+  .input:hover:not(:focus):not(:disabled) {
+    @apply border-ink/25;
+  }
+
+  .input:disabled {
+    @apply bg-sunken text-ink/40 cursor-not-allowed;
+  }
+
+  .label {
+    @apply mb-1.5 block text-2xs font-semibold uppercase tracking-wider text-ink/45;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-white
+      shadow-sm transition-all duration-200 ease-premium
+      hover:bg-accent-dark hover:shadow-lift hover:-translate-y-px
+      active:translate-y-0 active:scale-[0.98]
+      disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none disabled:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-white px-4 py-2.5 text-sm font-medium text-ink
+      transition-all duration-200 ease-premium
+      hover:border-ink/20 hover:bg-sunken hover:-translate-y-px
+      active:translate-y-0 active:scale-[0.98]
+      disabled:opacity-40 disabled:pointer-events-none disabled:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-ink/60
+      transition-all duration-200 ease-premium
+      hover:bg-sunken hover:text-ink
+      disabled:opacity-40 disabled:pointer-events-none;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-danger/25 bg-danger-soft px-3 py-1.5 text-xs font-medium text-danger
+      transition-all duration-200 ease-premium
+      hover:bg-danger hover:text-white hover:border-danger
+      active:scale-[0.97];
+  }
+
+  .icon-btn {
+    @apply inline-flex h-9 w-9 items-center justify-center rounded-lg text-ink/55
+      transition-all duration-200 ease-premium
+      hover:bg-sunken hover:text-ink hover:shadow-sm active:scale-95;
+  }
+
+  /* ---------- Surfaces ---------- */
+  .card {
+    @apply rounded-2xl border border-line-soft bg-surface shadow-soft;
+  }
+
+  .card-interactive {
+    @apply card transition-all duration-300 ease-premium hover:shadow-lift hover:-translate-y-0.5;
+  }
+
+  /* ---------- Table ---------- */
+  .th {
+    @apply px-4 py-3 text-left text-2xs font-semibold uppercase tracking-wider text-ink/45 border-b border-line-soft bg-sunken/60;
+  }
+
+  .td {
+    @apply px-4 py-3.5 text-sm text-ink border-b border-line-soft/80;
+  }
+
+  .table-row {
+    @apply transition-colors duration-150 hover:bg-sunken/50;
+  }
+
+  .table-row:active {
+    @apply bg-sunken/70;
+  }
+
+  /* ---------- Signature motif: stitched tag divider ---------- */
+  .stitch-divider {
+    @apply relative h-px w-full;
+    background-image: repeating-linear-gradient(
+      to right,
+      rgba(28, 28, 30, 0.16) 0,
+      rgba(28, 28, 30, 0.16) 5px,
+      transparent 5px,
+      transparent 11px
+    );
+  }
+
+  /* Price-tag style badge, used for SKU / status chips */
+  .tag-badge {
+    @apply relative inline-flex items-center gap-1.5 rounded-md bg-sunken px-2.5 py-1 font-mono text-2xs font-medium text-ink/60;
+  }
+
+  .tag-badge::before {
+    content: '';
+    @apply block h-1.5 w-1.5 rounded-full bg-ink/25;
+  }
+
+  .status-dot {
+    @apply inline-block h-1.5 w-1.5 rounded-full;
+  }
+
+  /* ---------- Skeleton loading ---------- */
+  .skeleton {
+    @apply relative overflow-hidden rounded-md bg-sunken;
+    background-image: linear-gradient(
+      90deg,
+      rgba(28, 28, 30, 0.04) 0,
+      rgba(28, 28, 30, 0.09) 40px,
+      rgba(28, 28, 30, 0.04) 80px
+    );
+    background-size: 480px 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  /* ---------- Nav link ---------- */
+  .nav-link {
+    @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-ink/55
+      transition-all duration-200 ease-premium
+      hover:bg-sunken hover:text-ink;
+  }
+
+  .nav-link.active {
+    @apply bg-accent-soft text-accent-dark;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
